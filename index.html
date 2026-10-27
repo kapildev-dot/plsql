@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#0b1020">
+    <title>Quiz Arena | Oracle PL/SQL Mini Project</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+<div class="bg-glow"></div>
+
+<main class="app">
+
+    <!-- ============ 1. START SCREEN ============ -->
+    <section id="screen-start" class="card screen">
+        <h1 class="logo">QUIZ <span>ARENA</span></h1>
+        <p class="subtitle">Python &bull; Flask &bull; Oracle PL/SQL Mini Project</p>
+
+        <label class="label" for="player-name">Player Name</label>
+        <input type="text" id="player-name" maxlength="30" placeholder="Apna naam likho..." autocomplete="off">
+
+        <span class="label">Choose Category</span>
+        <div id="category-list" class="chips"></div>
+
+        <ul class="rules">
+            <li>&#9201; <b id="rule-time">15</b> seconds per question &mdash; faster answer = more points</li>
+            <li>&#128293; Streak bonus for back-to-back correct answers</li>
+            <li>&#9986; One <b>50:50</b> lifeline per game</li>
+            <li>&#9989; Score 60% or more to <b>PASS</b></li>
+        </ul>
+
+        <button id="btn-start" class="btn btn-main">Start Quiz</button>
+
+        <h3 class="section-title">&#127942; Hall of Fame</h3>
+        <div class="table-wrap">
+            <table class="board">
+                <thead><tr><th>#</th><th>Name</th><th>Mode</th><th>Pts</th></tr></thead>
+                <tbody id="home-board"></tbody>
+            </table>
+        </div>
+    </section>
+
+    <!-- ============ 2. GAME SCREEN ============ -->
+    <section id="screen-game" class="card screen hidden">
+        <div class="hud">
+            <div><small>Player</small><b id="hud-name">-</b></div>
+            <div><small>Points</small><b id="hud-points">0</b></div>
+            <div><small>Streak</small><b id="hud-streak">0 &#128293;</b></div>
+        </div>
+
+        <div class="meta">
+            <span id="q-number">Question 1 / 10</span>
+            <span><span id="q-category" class="tag"></span> <span id="q-diff" class="tag"></span></span>
+        </div>
+        <div class="progress"><div id="progress-fill"></div></div>
+
+        <div class="timer">
+            <div class="timer-track"><div id="timer-fill"></div></div>
+            <span><b id="timer-val">15</b>s</span>
+        </div>
+
+        <h2 id="q-title">Loading...</h2>
+        <div id="options" class="options"></div>
+
+        <p id="feedback" class="feedback" aria-live="polite"></p>
+
+        <div class="game-foot">
+            <button id="btn-fifty" class="btn btn-ghost">50 : 50</button>
+            <small>Tip: press keys 1-4 or A-D to answer</small>
+        </div>
+    </section>
+
+    <!-- ============ 3. RESULT SCREEN ============ -->
+    <section id="screen-result" class="card screen hidden">
+        <h1 id="result-title" class="result-title">Result</h1>
+        <p id="result-sub" class="subtitle"></p>
+
+        <div class="stats">
+            <div><b id="st-correct">0/0</b><small>Correct</small></div>
+            <div><b id="st-points">0</b><small>Points</small></div>
+            <div><b id="st-acc">0%</b><small>Accuracy</small></div>
+            <div><b id="st-streak">0</b><small>Best Streak</small></div>
+            <div><b id="st-time">0s</b><small>Time</small></div>
+        </div>
+
+        <div class="db-box">
+            <h3>Oracle DB Live Status</h3>
+            <div class="db-row"><span>PL/SQL Function (status)</span><b id="db-status">-</b></div>
+            <div class="db-row"><span>PL/SQL Function (grade)</span><b id="db-grade">-</b></div>
+            <div class="db-row"><span>Trigger Message</span><b id="db-msg">-</b></div>
+            <div class="db-row"><span>Your Rank</span><b id="db-rank">-</b></div>
+            <p id="db-error" class="db-error hidden"></p>
+        </div>
+
+        <h3 class="section-title">Leaderboard (Top 10)</h3>
+        <div class="table-wrap">
+            <table class="board">
+                <thead><tr><th>#</th><th>Name</th><th>Mode</th><th>Pts</th><th>Result</th></tr></thead>
+                <tbody id="result-board"></tbody>
+            </table>
+        </div>
+
+        <div class="actions">
+            <button id="btn-retry" class="btn btn-ghost hidden">Retry Save</button>
+            <button id="btn-again" class="btn btn-main">Play Again</button>
+        </div>
+    </section>
+
+</main>
+
+<div id="toast" class="toast hidden" role="alert"></div>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>

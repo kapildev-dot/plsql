@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quiz Result</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="card result">
+        <h1>📊 Result</h1>
+        <p class="student">Student: <b>{{ name }}</b></p>
+        <p class="score">Your Score: {{ score }}/{{ total }}</p>
+
+        {% if error %}
+            <p class="fail">Database Error: {{ error }}</p>
+        {% else %}
+            <p class="{{ 'pass' if status == 'PASS' else 'fail' }}">Result: {{ status }}</p>
+            <p class="msg">✔ {{ message }}</p>
+            <p class="msg">Result stored in database.</p>
+        {% endif %}
+
+        <a href="/" class="btn btn-main">Play Again</a>
+    </div>
+</body>
+</html>
